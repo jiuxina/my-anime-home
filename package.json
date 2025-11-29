@@ -1,0 +1,23 @@
+{
+  "name": "my-anime-home",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "nuxt": "^4.2.1",
+    "vanilla-tilt": "^1.8.1",
+    "vue": "^3.5.25",
+    "vue-router": "^4.6.3"
+  },
+  "devDependencies": {
+    "@nuxtjs/tailwindcss": "^6.14.0",
+    "@unocss/nuxt": "^66.5.9",
+    "animejs": "^4.2.2"
+  }
+}
