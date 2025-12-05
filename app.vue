@@ -110,19 +110,23 @@
         <span class="text-lg font-bold tracking-wide">GitHub</span>
       </a>
 
-      <a 
-        href="https://space.bilibili.com/432812758" target="_blank" ref="card6"
+      <div 
+        ref="card6"
         class="tilt-card bg-pink-400 text-white p-4 rounded-3xl shadow-xl flex flex-col items-center justify-center hover:bg-pink-500 transition-colors group cursor-pointer"
         data-tilt
+        role="button"
+        tabindex="0"
+        @click="openTip"
+        @keyup.enter="openTip"
       >
         <div class="i-simple-icons-bilibili text-4xl mb-3 group-hover:rotate-12 transition-transform"></div>
         <!-- 修复点：字体从 text-xs 改为 text-lg font-bold -->
         <span class="text-lg font-bold tracking-wide">Bilibili</span>
-      </a>
+      </div>
 
       <!-- ================= 卡片 7: 项目 ================= -->
       <a 
-        href="https://www.zhuangmai.cloud/" target="_blank" ref="card7"
+        href="https://www.00000721.xyz/" target="_blank" ref="card7"
         class="tilt-card md:col-span-2 bg-gradient-to-r from-blue-500 to-cyan-400 text-white p-6 rounded-3xl shadow-xl flex items-center justify-between group cursor-pointer overflow-hidden"
         data-tilt
       >
@@ -136,6 +140,16 @@
         <div class="i-carbon-cloud-service-management text-8xl opacity-20 absolute -right-4 -bottom-4 rotate-12 group-hover:scale-110 transition-transform"></div>
       </a>
     </div>
+
+    <!-- 非模态提示 -->
+    <Transition name="fade">
+      <div
+        v-if="showTip"
+        class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-white/90 text-pink-600 font-bold px-4 py-2 rounded-full shadow-xl border border-pink-200 z-50"
+      >
+        不给看~
+      </div>
+    </Transition>
 
     <!-- 底部版权 -->
     <div class="fixed bottom-2 w-full text-center text-white/50 text-[10px] z-10">
@@ -179,6 +193,19 @@ onMounted(() => {
     max: 10, speed: 400, glare: true, "max-glare": 0.2, scale: 1.02
   })
 })
+
+// 5. 非模态提示逻辑
+const showTip = ref(false)
+let tipTimer = null
+const openTip = () => {
+  showTip.value = true
+  if (tipTimer) clearTimeout(tipTimer)
+  tipTimer = setTimeout(() => { showTip.value = false }, 2000)
+}
+
+onBeforeUnmount(() => {
+  if (tipTimer) clearTimeout(tipTimer)
+})
 </script>
 
 <style>
@@ -208,4 +235,8 @@ onMounted(() => {
 .aplayer .aplayer-list ol li:hover {
   background: #fcfcfc;
 }
+
+/* Toast 动画 */
+.fade-enter-active, .fade-leave-active { transition: opacity 0.25s ease, transform 0.25s ease; }
+.fade-enter-from, .fade-leave-to { opacity: 0; transform: translateY(8px); }
 </style>
